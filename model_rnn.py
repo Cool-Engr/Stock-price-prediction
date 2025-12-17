@@ -72,15 +72,15 @@ class LstmRNN(object):
         self.inputs = tf.placeholder(tf.float32, [None, self.num_steps, self.input_size], name="inputs")
         self.targets = tf.placeholder(tf.float32, [None, self.input_size], name="targets")
 
-        def _create_one_cell():
-            lstm_cell = tf.contrib.rnn.LSTMCell(self.lstm_size, state_is_tuple=True)
-            lstm_cell = tf.contrib.rnn.DropoutWrapper(lstm_cell, output_keep_prob=self.keep_prob)
-            return lstm_cell
+        # def _create_one_cell():
+        #     lstm_cell = tf.contrib.rnn.LSTMCell(self.lstm_size, state_is_tuple=True)
+        #     lstm_cell = tf.contrib.rnn.DropoutWrapper(lstm_cell, output_keep_prob=self.keep_prob)
+        #     return lstm_cell
 
-        cell = tf.contrib.rnn.MultiRNNCell(
-            [_create_one_cell() for _ in range(self.num_layers)],
-            state_is_tuple=True
-        ) if self.num_layers > 1 else _create_one_cell()
+        # cell = tf.contrib.rnn.MultiRNNCell(
+        #     [_create_one_cell() for _ in range(self.num_layers)],
+        #     state_is_tuple=True
+        # ) if self.num_layers > 1 else _create_one_cell()
 
         if self.embed_size > 0 and self.stock_count > 1:
             self.embed_matrix = tf.Variable(
